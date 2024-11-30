@@ -13,24 +13,26 @@ source:
     - 3-python3.patch
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
     # It needs numpy to identify the version of the package
     # it really is a pure python package
     - numpy
   run:
-    - python
+    - python >={{ python_min }}
     - numpy
     - matplotlib-base
     - xppaut
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - xppy
 
